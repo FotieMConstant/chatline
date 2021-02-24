@@ -1,4 +1,4 @@
-# Streamlyn
+# streamline
 
 ## Project setup
 ```

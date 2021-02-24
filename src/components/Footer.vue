@@ -2,7 +2,7 @@
   <center>
     <v-footer class="__footer">
       <v-flex class="text-xs-center"
-        >Streamlyn Community © {{ new Date().getFullYear() }}. Open Source
+        >streamline Community © {{ new Date().getFullYear() }}. Open Source
         Project.</v-flex
       >
     </v-footer>
