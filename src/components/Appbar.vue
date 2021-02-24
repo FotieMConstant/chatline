@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <router-link to="/">
-        <v-toolbar-title id="logo">Screamline </v-toolbar-title>
+        <v-toolbar-title id="logo">Streamlyn </v-toolbar-title>
       </router-link>
 
       <v-spacer></v-spacer>
