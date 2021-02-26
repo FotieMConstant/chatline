@@ -1,5 +1,8 @@
 # streamline
 
+## Server script
+The sewrver script is in the root directory, just hit `node server.js` to start the node server for the sockets. Also there is a test route `http://localhost:port/testconnection` to test the connection between the client and the server socket
+
 ## Project setup
 ```
 npm install
