@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "socket.io-client": "^3.1.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-socket.io": "^3.0.10",
     "vue-webrtc": "^1.2.2",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"

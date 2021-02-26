@@ -5,6 +5,7 @@
         <v-card class="pa-2" outlined tile>
           <!-- Where the video is played -->
           <v-sheet
+            @click="clickButton"
             color="#272727"
             elevation="3"
             height="550"
@@ -45,6 +46,29 @@
         ></v-card>
       </v-col>
     </v-row>
+    <!-- Dialog to get the room id -->
+    <v-dialog v-model="dialogGetRoomId" max-width="290">
+      <v-card>
+        <v-card-title class="headline"> Room ID </v-card-title>
+
+        <v-card-text>
+          Please provide the room id: <v-text-field v-model="roomId" />
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="dialogGetRoomId = false">
+            Disagree
+          </v-btn>
+
+          <v-btn color="green darken-1" text @click="dialogGetRoomId = false">
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- / Dialog to get the room id -->
   </div>
 </template>
 
@@ -59,6 +83,8 @@ export default {
   },
   data() {
     return {
+      dialogGetRoomId: false,
+      roomId: null,
       items: [
         { header: "In room" },
         {
@@ -93,6 +119,21 @@ export default {
           subtitle:
             '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
         },
+        { divider: true, inset: true },
+        {
+          avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
+          title: "Recipe to try",
+          subtitle:
+            '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+        },
+        { divider: true, inset: true },
+        {
+          avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
+          title: "Recipe to try",
+          subtitle:
+            '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+        },
+        { divider: true, inset: true },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
           title: "Recipe to try",
@@ -101,6 +142,43 @@ export default {
         },
       ],
     };
+  },
+  sockets: {
+    connect: function () {
+      console.log("socket connected");
+      // emiting data to the backend
+      this.$socket.emit("create", "room1");
+      this.$socket.emit(
+        "video",
+        "https://stackoverflow.com/questions/19150220/creating-rooms-in-socket-io"
+      );
+    },
+    customEmit: function (data) {
+      console.log(
+        'this method was fired by the socket server. eg: io.emit("customEmit", data)' +
+          data
+      );
+    },
+  },
+  methods: {
+    clickButton: function () {
+      // $socket is socket.io-client instance
+      console.log("Clicked");
+      this.$socket.on("video", function (videoLink) {
+        console.log("Message gotten from socket => " + videoLink);
+      });
+    },
+  },
+  mounted() {
+    // this.$socket.on("user-connected", (data) => {
+    //   debugger;
+    //   console.log(data);
+    //   this.$socket.emit("users");
+    // });
+    // this.$socket.emit("users");
+    // this.$socket.on("users", (data) => {
+    //   console.log("users", data);
+    // });
   },
 };
 </script>
