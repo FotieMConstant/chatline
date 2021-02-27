@@ -75,6 +75,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import socket from "@/plugins/socketio.js";
 
 export default {
   name: "Home",
@@ -143,32 +144,7 @@ export default {
       ],
     };
   },
-  sockets: {
-    connect: function () {
-      console.log("socket connected");
-      // emiting data to the backend
-      this.$socket.emit("create", "room1");
-      this.$socket.emit(
-        "video",
-        "https://stackoverflow.com/questions/19150220/creating-rooms-in-socket-io"
-      );
-    },
-    customEmit: function (data) {
-      console.log(
-        'this method was fired by the socket server. eg: io.emit("customEmit", data)' +
-          data
-      );
-    },
-  },
-  methods: {
-    clickButton: function () {
-      // $socket is socket.io-client instance
-      console.log("Clicked");
-      this.$socket.on("video", function (videoLink) {
-        console.log("Message gotten from socket => " + videoLink);
-      });
-    },
-  },
+
   mounted() {
     // this.$socket.on("user-connected", (data) => {
     //   debugger;
@@ -179,6 +155,36 @@ export default {
     // this.$socket.on("users", (data) => {
     //   console.log("users", data);
     // });
+  },
+  // sockets: {
+  //   connect: function () {
+  //     console.log("socket connected");
+  //     // emiting data to the backend
+  //     this.$socket.emit("create", "room1");
+  //     this.$socket.emit(
+  //       "video",
+  //       "https://stackoverflow.com/questions/19150220/creating-rooms-in-socket-io"
+  //     );
+  //   },
+  //   customEmit: function (data) {
+  //     console.log(
+  //       'this method was fired by the socket server. eg: io.emit("customEmit", data)' +
+  //         data
+  //     );
+  //   },
+  // },
+  methods: {
+    clickButton: function () {
+      // $socket is socket.io-client instance
+      console.log("Clicked");
+      socket.emit(
+        "video",
+        "https://medium.com/machine-words/writing-technical-design-docs-71f446e42f2e"
+      );
+      socket.on("video", function (videoLink) {
+        console.log("Message gotten from socket => " + videoLink);
+      });
+    },
   },
 };
 </script>

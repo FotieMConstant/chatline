@@ -15,17 +15,19 @@ io.on('connection', function (client) {
         //  to ping server from test
          client.on('pingServer', (message) =>{
              console.log(message);
-             client.emit("message",'You are message=> '+message)
+             client.emit("message",'Message from backed, with client id => '+client.id)
          })
+          // sending data to client side
+          client.on('video', (videoLink) => {
+            client.emit('video', videoLink);
+              console.log("sending to clients =>"+videoLink)
+          });
+
+      
         //  creating a room
          client.on('create', function(room) {
             client.join(room);
 
-            // sending data to client side
-            client.on('video', (videoLink) => {
-                client.emit('video', videoLink);
-                console.log("sending to clients =>"+videoLink)
-              });
 
 
             console.log("room created with id =>"+room)
