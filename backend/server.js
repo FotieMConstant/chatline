@@ -7,7 +7,7 @@ app.use(cors());
 
 io.on('connection', function (client) {
         console.log('a user connected => '+client.id);
-        client.on('event', data => { /* … */ });
+        // client.on('event', data => { /* … */ });
         // When client disconnects
         client.on('disconnect', () => { 
             console.log("Client => "+client.id+" disconnected")
@@ -15,6 +15,7 @@ io.on('connection', function (client) {
         //  to ping server from test
          client.on('pingServer', (message) =>{
              console.log(message);
+             client.emit("message",'You are message=> '+message)
          })
         //  creating a room
          client.on('create', function(room) {
@@ -22,7 +23,7 @@ io.on('connection', function (client) {
 
             // sending data to client side
             client.on('video', (videoLink) => {
-                io.emit('video', videoLink);
+                client.emit('video', videoLink);
                 console.log("sending to clients =>"+videoLink)
               });
 
@@ -33,5 +34,5 @@ io.on('connection', function (client) {
 })
 
 server.listen(3000, function(){
-    console.log('listening on *:3000');
+    console.log('listening on port: 3000');
 });
